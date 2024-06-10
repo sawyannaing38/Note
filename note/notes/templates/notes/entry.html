@@ -1,0 +1,36 @@
+{% extends "notes/layout.html" %}
+
+{% load static %}
+
+{% block link %}
+    <link rel="stylesheet" href="{% static 'notes/entry.css' %}">
+{% endblock %}
+{% block title %}
+    {{title}}
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-3">
+                <!-- Show list of notes here -->
+                <nav class="nav flex-column navigation">
+                    <h2 class="h2 text-center">{{category}}</h2>
+                    {% for note in notes %}
+                        {% url 'note' category=category title=note as note_url %}
+                        <a class="nav-link" href="{{ note_url }}">{{note}}</a>
+                    {% endfor %}
+                </nav>
+            </div>
+
+            <div class="col-9">
+                <!-- Show content of each note here -->
+                 {{content|safe}}
+
+                <!-- Edit button here -->
+                <a class="btn btn-primary" href="{% url 'edit' category title %}">Edit</a>
+                <a class="btn btn-danger" href="{% url 'remove' category title %}">Remove</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

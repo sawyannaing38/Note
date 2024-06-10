@@ -1,0 +1,10 @@
+{% extends "notes/layout.html" %}
+
+{% block title %}
+    Apology
+{% endblock %}
+
+{% block body %}
+    <p class="alert alert-primary">{{message}}</p>
+    <p class="alert alert-primary">Add Some <a href="{% url 'add' %}" class="alert-link">Here.</a></p>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends "notes/layout.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <form class="text-dark" method="post" action="{% url 'add' %}">
+            {% csrf_token %}
+            <div class="form-floating">
+                <input class="form-control" value="{{category}}" type="text" name="category" id="category" placeholder="Category" autocomplete="off" required>
+                <label for="category">Category</label>
+            </div>
+            <div class="form-floating my-3">
+                <input class="form-control" value="{{title}}" type="text" name="title" id="title" placeholder="Title" autocomplete="off" required>
+                <label for="title">Title</label>
+            </div>
+            <div class="my-3">
+                <label for="content" class="text-light">Note</label>
+                <textarea class="form-control" rows="10" name="content" id="content" placeholder="Content" required>{{content}}</textarea>
+            </div>
+            
+            {% if content and not exists %}
+                {% with 'Save Changes' as button_text %}
+                    <input class="btn btn-primary" type="submit" value="{{ button_text }}">
+                {% endwith %}
+            {% else %}
+                {% with 'Add Note' as button_text %}
+                    <input class="btn btn-primary" type="submit" value="{{ button_text }}">
+                {% endwith %}
+            {% endif %}
+
+        </form>
+        {% if message %}
+            <p class="alert alert-danger my-3">{{message}}</p>
+        {% endif %}
+    </div>
+{% endblock %}
