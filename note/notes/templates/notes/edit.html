@@ -6,7 +6,7 @@
 
 {% block body %}
     <div class="container">
-        <form class="text-dark" method="post" action="{% url 'add' %}">
+        <form class="text-dark" method="post" action="{% url 'edit' category title %}">
             {% csrf_token %}
             <div class="form-floating">
                 <input class="form-control" value="{{category}}" type="text" name="category" id="category" placeholder="Category" autocomplete="off" required>
@@ -20,7 +20,6 @@
                 <label for="content" class="text-light">Note</label>
                 <textarea class="form-control" rows="10" name="content" id="content" placeholder="Content" required>{{content}}</textarea>
             </div>
-            
-            <input class="btn btn-primary" type="submit" value="Add Note">
+            <input class="btn btn-primary" type="submit" value="Save Changes">
     </div>
 {% endblock %}

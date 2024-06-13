@@ -86,14 +86,25 @@ def note(request, category, title):
 
 # For editing page
 def edit(request, category, title):
+    if request.method == "POST":
+
+        # Get the content
+        content = request.POST.get("content").replace("\n\n", "\n").replace("\r\n", "\n")
+
+        # Save the changes
+        util.save_note(category,title,content)
+
+        return HttpResponseRedirect(reverse("note", args=[category, title]))
 
     content = util.get_note(category, title)
 
-    return render(request, "notes/add.html", {
+    return render(request, "notes/edit.html", {
         "category" : category,
         "title" : title,
         "content" : content
     })
+
+        
 
 # For removing
 def remove(request, category, title):
